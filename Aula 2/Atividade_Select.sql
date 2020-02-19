@@ -66,7 +66,7 @@ SELECT * FROM tb_clientes ORDER BY nm_cliente ASC;
 
 /* 17 - Liste todos os lanches que possuam queijo em ordem decrescente de valor. */
 
-SELECT * FROM tb_lanches WHERE ds_lanche LIKE '%queijo%' ORDER BY nm_lanche DESC;
+SELECT * FROM tb_lanches WHERE ds_lanche LIKE '%queijo%' ORDER BY vl_preco DESC;
 
 /* 18 - Liste todas as bebidas que custem mais de 6,50 em ordem alfabetica. */
 
