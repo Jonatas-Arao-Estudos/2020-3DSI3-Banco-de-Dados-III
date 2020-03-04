@@ -14,7 +14,8 @@ SELECT
     SI.nm_produto 'Nome',
     SI.nm_fabricante 'Fabricante',
     SI.ds_produto 'Descrição',
-    SI.vl_produto 'Valor'
+    SI.vl_produto 'Valor - Loja Super Info',
+    LE.vl_produto 'Valor - Loja que Explode'
 FROM
 	estoque_superinfo SI
     INNER JOIN
@@ -27,23 +28,68 @@ SELECT
     SI.nm_produto 'Nome',
     SI.nm_fabricante 'Fabricante',
     SI.ds_produto 'Descrição',
-    SI.vl_produto 'Valor',
-    MI.id_produto 'ID',
+    SI.vl_produto 'Valor - Loja Super Info',
+    MI.vl_produto 'Valor - Mega Informática'
+FROM
+	estoque_superinfo SI
+    LEFT JOIN
+    estoque_megainformatica MI ON(SI.id_produto = MI.id_produto)
+UNION
+SELECT
+	MI.id_produto 'ID',
+    MI.nm_produto 'Nome',
+    MI.nm_fabricante 'Fabricante',
+    MI.ds_produto 'Descrição',
+    SI.vl_produto 'Valor - Loja Super Info',
+    MI.vl_produto 'Valor - Mega Informática'
+FROM
+	estoque_superinfo SI
+    RIGHT JOIN
+    estoque_megainformatica MI ON(SI.id_produto = MI.id_produto)
+WHERE
+	SI.id_produto is null
+;
+
+/* 3. Dentre os itens no estoque da loja que explode e da pikachu informática qual é o mais caro? */
+
+/* 4. Qual o item mais barato da loja mega informática? */
+SELECT
+	id_produto 'ID',
+    nm_produto 'Nome',
+    nm_fabricante 'Fabricante',
+    ds_produto 'Descrição',
+    vl_produto 'Valor'
+FROM
+	estoque_megainformatica
+WHERE
+	vl_produto = (SELECT MIN(vl_produto) FROM estoque_megainformatica)
+;
+
+/* 5. Quais itens aparecem no estoque da mega informática e da pikachu informática? */
+SELECT
+	MI.id_produto 'ID',
     MI.nm_produto 'Nome',
     MI.nm_fabricante 'Fabricante',
     MI.ds_produto 'Descrição',
     MI.vl_produto 'Valor'
 FROM
-	estoque_superinfo SI,
-    estoque_megainformatica MI
+	estoque_megainformatica MI
+    INNER JOIN
+    estoque_pikachuinformatica PI ON (MI.id_produto = PI.id_produto)
 ;
-/* 3. Dentre os itens no estoque da loja que explode e da pikachu informática qual é o mais caro? */
-
-/* 4. Qual o item mais barato da loja mega informática? */
-
-/* 5. Quais itens aparecem no estoque da mega informática e da pikachu informática? */
 
 /* 6. Quais itens aparecem no estoque da loja que explode e da mega informática? */
+SELECT
+	LE.id_produto 'ID',
+    LE.nm_produto 'Nome',
+    LE.nm_fabricante 'Fabricante',
+    LE.ds_produto 'Descrição',
+    LE.vl_produto 'Valor'
+FROM
+	estoque_lojaqueexplode LE
+    INNER JOIN
+    estoque_megainformatica MI ON (LE.id_produto = MI.id_produto)
+;
 
 /* 7. Quais itens aparecem no estoque da pikachu informática e não aparecem no estoque da mega informática? */
 
