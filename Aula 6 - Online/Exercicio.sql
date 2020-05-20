@@ -8,7 +8,7 @@ CREATE FUNCTION calcular_pedido(valorTotal double, taxaCartao double, taxaEntreg
 RETURNS DOUBLE RETURN valorTotal * (1 + taxaCartao/100) + taxaEntrega;
 
 /*
-1 - Crie  uma  função  capaz  de  calcular  o  valor  dos  pedidos  da PZzzaria.
+1 - Crie  uma  função  capaz  de  calcular  o  valor  dos  pedidos  da Pizzaria.
 */
 
 SELECT
